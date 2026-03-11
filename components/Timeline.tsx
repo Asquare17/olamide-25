@@ -9,7 +9,7 @@ const MOMENTS = [
     title: "Where It All Started",
     desc: "A car ride. A pink head wrap. A blue floral shirt. Genesis Cinema. That ordinary September afternoon quietly became the start of everything — and neither of us knew it yet.",
     imagePath: "/images/love-began.webp",
-    imagePos: "center 12%",
+    imagePos: "center 55%",
     side: "left",
   },
   {
@@ -18,7 +18,7 @@ const MOMENTS = [
     title: "See Lagos",
     desc: "You walked in between those bookshelves and I couldn't look away. The girl who reads — of course I was done for.",
     imagePath: "/images/first-date.webp",
-    imagePos: "center 8%",
+    imagePos: "center 65%",
     side: "right",
   },
   {
@@ -27,16 +27,16 @@ const MOMENTS = [
     title: "Iftar at Gusto",
     desc: "Breaking fast together at Gusto. Watching you in your element — faithful, calm, luminous — was one of the most beautiful things I've witnessed.",
     imagePath: "/images/ramadan-date.webp",
-    imagePos: "center 14%",
+    imagePos: "center 52%",
     side: "left",
   },
   {
     id: 4,
     label: "Together",
-    title: "The Inter Miami Jersey",
-    desc: "You put on that Inter Miami jersey and something shifted — you looked so effortlessly yourself. That smile of yours makes everything else disappear.",
+    title: "That Quiet, Competitive Fire",
+    desc: "She has this focus — the kind that doesn't need to announce itself. Whatever she sets her mind to, watch out. You've seen it up close, and it's something else entirely.",
     imagePath: "/images/at-my-place.webp",
-    imagePos: "center 8%",
+    imagePos: "center 44%",
     side: "right",
   },
   {
@@ -45,7 +45,7 @@ const MOMENTS = [
     title: "The Beach, Together",
     desc: "Sand and waves and your laughter. If someone asked me to describe joy, I would describe that day.",
     imagePath: "/images/beach.webp",
-    imagePos: "center 12%",
+    imagePos: "center 42%",
     side: "left",
   },
   {
