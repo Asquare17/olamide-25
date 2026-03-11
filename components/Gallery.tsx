@@ -48,7 +48,7 @@ const GALLERY_ITEMS = [
     label: "The Model",
     caption: "Between the staircase and dim light — art.",
     imagePath: "/images/model.webp",
-    objectPosition: "center 12%",
+    objectPosition: "center 5%",
   },
   {
     id: "g3",
@@ -73,8 +73,8 @@ const GALLERY_ITEMS = [
   },
   {
     id: "g6",
-    label: "At His Place",
-    caption: "Glasses. Inter Miami jersey. Completely, perfectly at home.",
+    label: "Casual & Iconic",
+    caption: "Glasses on. Inter Miami jersey. Looking this good doing absolutely nothing.",
     imagePath: "/images/at-my-place.webp",
     objectPosition: "center 18%",
   },
