@@ -122,6 +122,7 @@ function PhotoCard({
         src={imagePath}
         alt={label}
         fill
+        loading="lazy"
         className="object-cover transition-transform duration-700 group-hover:scale-105"
         style={{ objectPosition }}
       />

@@ -14,8 +14,8 @@ export default function StarField() {
   const [stars, setStars] = useState<Star[]>([]);
 
   useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-    const count = isMobile ? 40 : 120;
+    if (window.innerWidth < 768) return; // skip on mobile — 40 fixed animated elements = too many GPU layers
+    const count = 120;
     const generated = Array.from({ length: count }, (_, i) => ({
       id: i,
       x: Math.random() * 100,

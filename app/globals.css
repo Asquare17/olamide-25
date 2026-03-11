@@ -79,17 +79,21 @@ body {
 }
 
 @media (max-width: 768px) {
+  /* Kill backdrop-filter entirely — each instance is a GPU compositing layer */
   .glass {
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.10);
   }
   .glass-gold {
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(212, 175, 55, 0.14);
   }
   .glass-rose {
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(194, 24, 91, 0.14);
   }
 }
 
@@ -207,8 +211,8 @@ body {
 }
 
 @media (max-width: 768px) {
-  /* Reduce orb blur cost on mobile */
-  .orb { filter: blur(50px); opacity: 0.05 !important; }
+  /* Hide orbs entirely on mobile — filter:blur + will-change = GPU layer per orb */
+  .orb { display: none !important; }
 }
 
 /* ─── Input ─────────────────────────────────────────────────────── */
@@ -294,8 +298,39 @@ input:focus { outline: none; }
 }
 
 @media (max-width: 768px) {
-  /* Kill orbFloat on mobile — static blobs are fine */
-  [style*="orbFloat"] { animation: none !important; }
+  /* ── GPU layer budget: kill everything that creates a compositing layer ── */
+
+  /* No will-change — each one promotes an element to its own GPU texture */
+  *, *::before, *::after { will-change: auto !important; }
+
+  /* No animations except the photo slideshow crossfade (opacity on .object-cover) */
+  .shimmer-text {
+    animation: none !important;
+    background: linear-gradient(90deg, #d4af37, #f0d060) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+  }
+  .age-badge {
+    animation: none !important;
+  }
+  .star {
+    animation: none !important;
+    opacity: 0.5;
+  }
+  [style*="heartbeat"] { animation: none !important; }
+  [style*="orbFloat"]  { animation: none !important; }
+  [style*="bounce"]    { animation: none !important; }
+
+  /* photo-frame pseudo-elements: no blur, no animation */
+  .photo-frame::after { filter: none !important; animation: none !important; }
+  .photo-frame::before { animation: none !important; }
+
+  /* No text-shadows on mobile — each unique shadow can trigger repaints */
+  .text-glow-gold { text-shadow: none; }
+  .text-glow-rose { text-shadow: none; }
+  .glow-gold { box-shadow: none; }
+  .glow-rose  { box-shadow: none; }
 }
 
 /* ─── Letter reveal ─────────────────────────────────────────────── */

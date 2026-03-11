@@ -8,6 +8,27 @@ import GiftSection from "@/components/GiftSection";
 import WishesSection from "@/components/WishesSection";
 import { useEffect, useState } from "react";
 
+function WishButton() {
+  const scrollToWishes = () => {
+    document.querySelector('section[data-section="3"]')?.scrollIntoView({ behavior: "smooth" });
+  };
+  return (
+    <button
+      onClick={scrollToWishes}
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 rounded-full px-5 py-3 font-playfair font-semibold text-sm tracking-wide"
+      style={{
+        background: "rgba(212,175,55,0.15)",
+        border: "1px solid rgba(212,175,55,0.55)",
+        color: "#d4af37",
+        boxShadow: "0 0 20px rgba(212,175,55,0.25)",
+        whiteSpace: "nowrap",
+      }}
+    >
+      💌 Say a wish to Olamide
+    </button>
+  );
+}
+
 function SectionDivider() {
   return (
     <div className="flex items-center justify-center gap-5 py-2 px-12">
@@ -187,6 +208,7 @@ export default function Home() {
       <StarField />
       <FloatingPetals />
       <NavDots />
+      <WishButton />
 
       {/* 1. Intro */}
       <section data-section="0">
