@@ -101,8 +101,7 @@ function PhotoCard({
   caption,
   imagePath,
   objectPosition,
-  height,
-  mobileHeight,
+  heightClass,
   index,
 }: {
   id: string;
@@ -110,20 +109,11 @@ function PhotoCard({
   caption: string;
   imagePath: string;
   objectPosition: string;
-  height: number;
-  mobileHeight?: number;
+  heightClass: string;
   index: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 640);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -134,14 +124,11 @@ function PhotoCard({
     return () => observer.disconnect();
   }, []);
 
-  const cardHeight = isMobile && mobileHeight ? mobileHeight : height;
-
   return (
     <div
       ref={ref}
-      className="relative rounded-2xl overflow-hidden group cursor-pointer"
+      className={`relative rounded-2xl overflow-hidden group cursor-pointer ${heightClass}`}
       style={{
-        height: `${cardHeight}px`,
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(30px)",
         transition: `opacity 0.6s ease ${index * 0.07}s, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${index * 0.07}s`,
@@ -267,7 +254,7 @@ export default function Gallery() {
         {/* 4 equal cards — tall portrait height, faces front and centre */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-20">
           {SHOOT_ITEMS.map((item, i) => (
-            <PhotoCard key={item.id} {...item} height={420} mobileHeight={300} index={i} />
+            <PhotoCard key={item.id} {...item} heightClass="h-[300px] sm:h-[420px]" index={i} />
           ))}
         </div>
 
@@ -280,7 +267,7 @@ export default function Gallery() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {GALLERY_ITEMS.map((item, i) => (
-            <PhotoCard key={item.id} {...item} height={320} index={i} />
+            <PhotoCard key={item.id} {...item} heightClass="h-[280px] sm:h-[320px]" index={i} />
           ))}
         </div>
       </div>
