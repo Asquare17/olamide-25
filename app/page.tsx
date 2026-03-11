@@ -9,12 +9,18 @@ import WishesSection from "@/components/WishesSection";
 import { useEffect, useState } from "react";
 
 function WishButton() {
-  const scrollToWishes = () => {
-    document.querySelector('section[data-section="3"]')?.scrollIntoView({ behavior: "smooth" });
+  const handleClick = () => {
+    const section = document.querySelector('section[data-section="3"]');
+    section?.scrollIntoView({ behavior: "smooth" });
+    // Focus the name input once scroll settles
+    setTimeout(() => {
+      const input = section?.querySelector("input") as HTMLInputElement | null;
+      input?.focus();
+    }, 700);
   };
   return (
     <button
-      onClick={scrollToWishes}
+      onClick={handleClick}
       className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 rounded-full px-5 py-3 font-playfair font-semibold text-sm tracking-wide"
       style={{
         background: "rgba(212,175,55,0.15)",
@@ -24,7 +30,7 @@ function WishButton() {
         whiteSpace: "nowrap",
       }}
     >
-      💌 Say a wish to Olamide
+      💌 Send a wish to Olamide
     </button>
   );
 }

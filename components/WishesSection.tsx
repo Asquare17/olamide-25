@@ -285,13 +285,13 @@ export default function WishesSection() {
                     maxLength={50}
                     className="rounded-xl px-4 py-3 font-cormorant text-lg w-full outline-none transition-all duration-200"
                     style={{
-                      background: "rgba(255,255,255,0.05)",
-                      border: "1px solid rgba(255,255,255,0.1)",
+                      background: "rgba(212,175,55,0.05)",
+                      border: "1px solid rgba(212,175,55,0.45)",
                       color: "rgba(255,245,240,0.9)",
                       caretColor: "#d4af37",
                     }}
-                    onFocus={(e) => { e.currentTarget.style.border = "1px solid rgba(212,175,55,0.5)"; }}
-                    onBlur={(e) => { e.currentTarget.style.border = "1px solid rgba(255,255,255,0.1)"; }}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(212,175,55,0.8)"; e.currentTarget.style.background = "rgba(212,175,55,0.08)"; }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(212,175,55,0.45)"; e.currentTarget.style.background = "rgba(212,175,55,0.05)"; }}
                   />
                 </div>
 
@@ -310,13 +310,13 @@ export default function WishesSection() {
                     rows={4}
                     className="rounded-xl px-4 py-3 font-cormorant text-lg w-full outline-none resize-none transition-all duration-200"
                     style={{
-                      background: "rgba(255,255,255,0.05)",
-                      border: "1px solid rgba(255,255,255,0.1)",
+                      background: "rgba(212,175,55,0.05)",
+                      border: "1px solid rgba(212,175,55,0.45)",
                       color: "rgba(255,245,240,0.9)",
                       caretColor: "#d4af37",
                     }}
-                    onFocus={(e) => { e.currentTarget.style.border = "1px solid rgba(212,175,55,0.5)"; }}
-                    onBlur={(e) => { e.currentTarget.style.border = "1px solid rgba(255,255,255,0.1)"; }}
+                    onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(212,175,55,0.8)"; e.currentTarget.style.background = "rgba(212,175,55,0.08)"; }}
+                    onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(212,175,55,0.45)"; e.currentTarget.style.background = "rgba(212,175,55,0.05)"; }}
                   />
                   <div className="text-right">
                     <span className="font-cormorant text-xs" style={{ color: "rgba(255,245,240,0.25)" }}>
