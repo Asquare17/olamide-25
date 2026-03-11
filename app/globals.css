@@ -1,0 +1,340 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Dancing+Script:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --wine-900: #0d0208;
+  --wine-800: #1a0410;
+  --wine-700: #2d0820;
+  --rose-gold: #c9956a;
+  --gold-medium: #d4af37;
+  --gold-soft: #f0d060;
+  --rose-blush: #ff8fab;
+  --rose-deep: #c2185b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--wine-900);
+  color: #fff;
+  font-family: 'Cormorant Garamond', serif;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0d0208;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #d4af37, #c9956a);
+  border-radius: 3px;
+}
+
+/* Shimmer text animation */
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #d4af37 0%,
+    #f0d060 25%,
+    #fff5e4 50%,
+    #f0d060 75%,
+    #d4af37 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Glass morphism */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-gold {
+  background: rgba(212, 175, 55, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.glass-rose {
+  background: rgba(194, 24, 91, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 143, 171, 0.25);
+}
+
+/* Glow effects */
+.glow-gold {
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.4), 0 0 60px rgba(212, 175, 55, 0.2);
+}
+
+.glow-rose {
+  box-shadow: 0 0 30px rgba(255, 143, 171, 0.4), 0 0 60px rgba(194, 24, 91, 0.2);
+}
+
+.text-glow-gold {
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.6), 0 0 40px rgba(212, 175, 55, 0.3);
+}
+
+.text-glow-rose {
+  text-shadow: 0 0 20px rgba(255, 143, 171, 0.8), 0 0 40px rgba(194, 24, 91, 0.4);
+}
+
+/* Card flip 3D */
+.card-scene {
+  perspective: 1000px;
+}
+
+.card-inner {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-back {
+  background: linear-gradient(135deg, #2d0820 0%, #450c30 50%, #2d0820 100%);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+}
+
+.card-front {
+  background: linear-gradient(135deg, #1a0410 0%, #2d0820 100%);
+  border: 1px solid rgba(212, 175, 55, 0.6);
+  transform: rotateY(180deg);
+}
+
+/* Envelope animation */
+.envelope-flap {
+  transform-origin: top center;
+  transition: transform 0.6s ease-in-out;
+}
+
+.envelope-open .envelope-flap {
+  transform: rotateX(-180deg);
+}
+
+/* Photo frame */
+.photo-frame {
+  position: relative;
+}
+
+.photo-frame::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  background: linear-gradient(135deg, #d4af37, #c9956a, #ff8fab, #c2185b, #d4af37);
+  border-radius: inherit;
+  z-index: -1;
+  animation: spin 4s linear infinite;
+  background-size: 300% 300%;
+}
+
+.photo-frame::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  background: linear-gradient(135deg, #d4af37, #c9956a, #ff8fab, #c2185b, #d4af37);
+  border-radius: inherit;
+  z-index: -2;
+  opacity: 0.4;
+  filter: blur(8px);
+  animation: spin 4s linear infinite reverse;
+  background-size: 300% 300%;
+}
+
+@keyframes spin {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Petal */
+.petal {
+  position: fixed;
+  top: -10vh;
+  animation: petalFall linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes petalFall {
+  0% {
+    transform: translateY(0) rotate(0deg) translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg) translateX(100px);
+    opacity: 0;
+  }
+}
+
+/* Star field */
+.star {
+  position: fixed;
+  border-radius: 50%;
+  animation: twinkle ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.2; transform: scale(0.6); }
+}
+
+/* Section */
+.snap-section {
+  min-height: 100vh;
+}
+
+/* Gold divider */
+.gold-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #d4af37, #f0d060, #d4af37, transparent);
+}
+
+/* Orb background elements */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+/* Input glow */
+input:focus {
+  outline: none;
+}
+
+.gift-input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: white;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.3em;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.gift-input:focus {
+  border-color: #d4af37;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), inset 0 0 20px rgba(212, 175, 55, 0.05);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+.gift-input::placeholder {
+  color: rgba(212, 175, 55, 0.3);
+  letter-spacing: 0.3em;
+}
+
+/* Number badge */
+.age-badge {
+  background: linear-gradient(135deg, #d4af37, #f0d060, #d4af37);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
+/* Matched card glow */
+.card-matched {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.6), 0 0 40px rgba(212, 175, 55, 0.3);
+  border-color: rgba(212, 175, 55, 0.8) !important;
+}
+
+/* Letter content */
+.letter-content {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: rgba(255, 245, 240, 0.9);
+}
+
+/* Timeline line */
+.timeline-line {
+  background: linear-gradient(to bottom, transparent, #d4af37, #c9956a, #ff8fab, transparent);
+}
+
+/* Gradient text variations */
+.gradient-rose-gold {
+  background: linear-gradient(135deg, #ff8fab, #d4af37);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-gold {
+  background: linear-gradient(135deg, #d4af37, #f0d060, #c9956a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Button hover lift */
+.btn-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-lift:hover {
+  transform: translateY(-3px);
+}
+
+/* Particle orbs */
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.1); }
+  66% { transform: translate(-20px, 10px) scale(0.9); }
+}
