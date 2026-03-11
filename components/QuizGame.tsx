@@ -31,12 +31,12 @@ const QUESTIONS = [
   {
     id: 3,
     photo: "/images/at-my-place.webp",
-    photoCaption: "💭 Comfortable. Casual. Completely her.",
-    question: "What jersey did you wear when you came to my place?",
+    photoCaption: "💭 Glasses on. Focused. Completely her.",
+    question: "Which football club jersey are you wearing in this photo?",
     options: ["Chelsea FC", "Real Madrid", "Inter Miami", "Man United"],
     answer: "Inter Miami",
-    correctMsg: "Inter Miami 🩷 Pink on pink — you made that jersey look better than any player ever has.",
-    wrongMsg: "Think pink... and think Miami 🌸",
+    correctMsg: "That pink jersey 🩷 You made it look better than any player ever has.",
+    wrongMsg: "Look at the badge on the jersey... think pink 🌸",
     reveals: "G",
   },
   {
@@ -216,7 +216,7 @@ export default function QuizGame({ onWin }: QuizGameProps) {
 
       {/* Options */}
       <div
-        className={`grid grid-cols-2 gap-3 w-full transition-all duration-100 ${shake ? "translate-x-1" : ""}`}
+        className={`grid grid-cols-1 sm:grid-cols-2 gap-3 w-full transition-all duration-100 ${shake ? "translate-x-1" : ""}`}
       >
         {question.options.map((option) => {
           const isSelected = selected === option;

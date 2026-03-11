@@ -4,37 +4,41 @@ import QuizGame from "./QuizGame";
 
 const CORRECT_PASSWORD = "LAGOS";
 
+const STORAGE_UNLOCKED = "olm_unlocked";
+const STORAGE_FAILS = "olm_fails";
+const STORAGE_QUIZ = "olm_quiz";
+const MAX_FAILS = 3;
+
 const BIRTHDAY_MESSAGE = `My dearest Shukurat Olamide,
 
 Where do I even begin?
 
-I've been trying to find the right words since the day I knew I wanted to write this — and the truth is, there are no words beautiful enough for you. But I'll try anyway, because you deserve every attempt.
+I've been sitting with these words for a long time — trying to find the right ones. And I've come to accept that there aren't words beautiful enough for you. But I'll try anyway, because you deserve every attempt.
 
 You are, without question, the most fascinating person I have ever met.
 
-The girl who walked into See Lagos on our first date, sitting between those bookshelves looking like something out of a painting — that image never left me. And it never will.
+September 3rd, 2023. I think about that afternoon more than you know. A car ride. Your pink head wrap. And that smile of yours — the one you can't quite hide, even when you're trying to be casual. I remember thinking: this is it. I didn't say a word. But I knew.
 
-I think about that car selfie from when the love began. You, in your pink head wrap, not even trying, and I was already finished. Done. Completely yours. You did that effortlessly, and I think that's the most Olamide thing possible.
+Then there was See Lagos — our first date. You walked in between those bookshelves looking like something out of a painting, and I was done. Completely finished. The girl who reads — of course I never stood a chance.
 
-I think about you in my Inter Miami jersey at my place — just existing, comfortable, unbothered — and it hit me that this was exactly where I wanted you to be. In my space. In my life. For good.
+Riri, I have watched you do life in a way that very few people can. With grace and fire, at the same time. You walk into a room and the energy shifts. You smile and people can't help but smile back. That positive energy of yours — it's not something you perform. It just radiates out of you naturally, and it's one of my favourite things about you.
 
-I think about you at Genesis Cinema with that smile — the one you can't contain — and how it felt like the whole world paused to admire you. I wanted to tell every stranger: I know her. She's mine. Isn't she incredible?
+I think about Ramadan 2024. Breaking fast with you at Gusto — watching you in your element, faithful and calm and present. There are sides of you that leave me quietly in awe. That was one of them.
 
-I think about Ramadan 2024. Breaking fast with you, watching you in your faith, calm and grateful and beautiful. There are sides of you that leave me speechless. That was one of them.
+I think about Takwa Bay. Sand and waves and your laughter. If someone asked me to describe joy, I would describe that day.
 
-I think about us at Takwa Bay — sand, waves, and your laughter. If someone asked me to describe joy, I would describe that day.
+And now today — you, at 25. More confident, more radiant, more fully yourself than I have ever seen you.
 
-And then I think about today. You, at 25. More confident, more radiant, more fully yourself than I have ever seen you.
+Shukurat Olamide, you are a woman of real depth. Your faith grounds you. Your drive moves you. Your kindness defines you. You have this quiet, competitive fire that I genuinely admire — the kind that doesn't need to announce itself, but shows up in everything you do.
 
-Shukurat Olamide, you are a woman of incredible depth. Your faith grounds you. Your style expresses you. Your kindness defines you. You are funny in the best way, real in a world full of performance, and soft in all the places that matter.
+I am praying over your 25th year like I mean it: long life, prosperity, and everything you're building — your brand, your business, your vision — growing beyond what even you can imagine right now.
 
-I am so proud to know you. So grateful you chose me. So excited for every chapter that comes after this one.
+Apeke — the best is still ahead. And I'll be right there for all of it.
 
 Happy 25th Birthday, my love.
 
-The best is still ahead — and I'll be right there for all of it.
-
-Yours, always.`;
+Yours, always.
+— Shola`;
 
 export default function GiftSection() {
   const [gameWon, setGameWon] = useState(false);
@@ -44,6 +48,8 @@ export default function GiftSection() {
   const [shake, setShake] = useState(false);
   const [showLetter, setShowLetter] = useState(false);
   const [confettiActive, setConfettiActive] = useState(false);
+  const [locked, setLocked] = useState(false);
+  const [failsLeft, setFailsLeft] = useState(MAX_FAILS);
   const sectionRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -56,18 +62,57 @@ export default function GiftSection() {
     return () => observer.disconnect();
   }, []);
 
+  // Restore persisted state on mount
+  useEffect(() => {
+    try {
+      if (localStorage.getItem(STORAGE_UNLOCKED) === "1") {
+        setUnlocked(true);
+        setShowLetter(true);
+        return;
+      }
+      const fails = Number(localStorage.getItem(STORAGE_FAILS) || "0");
+      if (fails >= MAX_FAILS) {
+        setLocked(true);
+        setFailsLeft(0);
+        return;
+      }
+      setFailsLeft(MAX_FAILS - fails);
+      if (localStorage.getItem(STORAGE_QUIZ) === "1") {
+        setGameWon(true);
+      }
+    } catch {
+      // localStorage unavailable (private browsing etc.) — degrade gracefully
+    }
+  }, []);
+
+  const handleQuizWin = () => {
+    try { localStorage.setItem(STORAGE_QUIZ, "1"); } catch {}
+    setGameWon(true);
+  };
+
   const handleUnlock = () => {
     if (password.toUpperCase().trim() === CORRECT_PASSWORD) {
+      try { localStorage.setItem(STORAGE_UNLOCKED, "1"); } catch {}
       setUnlocked(true);
       setError(false);
       setConfettiActive(true);
       setTimeout(() => setShowLetter(true), 600);
       setTimeout(() => setConfettiActive(false), 8000);
     } else {
+      try {
+        const fails = Number(localStorage.getItem(STORAGE_FAILS) || "0") + 1;
+        localStorage.setItem(STORAGE_FAILS, String(fails));
+        const remaining = MAX_FAILS - fails;
+        setFailsLeft(remaining);
+        if (remaining <= 0) {
+          setLocked(true);
+          return;
+        }
+      } catch {}
       setError(true);
       setShake(true);
       setTimeout(() => setShake(false), 600);
-      setTimeout(() => { setError(false); }, 3000);
+      setTimeout(() => setError(false), 3000);
     }
   };
 
@@ -88,15 +133,30 @@ export default function GiftSection() {
           </p>
         </div>
 
+        {/* Locked out */}
+        {locked && !unlocked && (
+          <div className="flex flex-col items-center gap-6 text-center">
+            <div className="glass-gold rounded-3xl p-10 max-w-lg mx-auto">
+              <div className="text-6xl mb-5">🔒</div>
+              <h3 className="font-playfair font-bold text-2xl mb-3" style={{ color: "#d4af37" }}>
+                This gift is just for her
+              </h3>
+              <p className="font-cormorant text-xl italic" style={{ color: "rgba(255,245,240,0.7)" }}>
+                You&apos;ve used all your attempts. This message was meant for one person only. 💌
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Quiz */}
-        {!unlocked && (
+        {!unlocked && !locked && (
           <div className="mb-12">
-            <QuizGame onWin={() => setGameWon(true)} />
+            <QuizGame onWin={handleQuizWin} />
           </div>
         )}
 
         {/* Password input */}
-        {!unlocked && (
+        {!unlocked && !locked && (
           <div className="flex flex-col items-center gap-6" style={{ opacity: gameWon ? 1 : 0.35, transition: "opacity 0.5s ease", pointerEvents: gameWon ? "auto" : "none" }}>
             <div className="gold-divider max-w-sm w-full" />
 
@@ -124,7 +184,7 @@ export default function GiftSection() {
 
               {error && (
                 <p className="font-cormorant text-sm text-center" style={{ color: "rgba(239,68,68,0.8)" }}>
-                  Not quite... remember where your story began 💭
+                  Not quite... {failsLeft} {failsLeft === 1 ? "attempt" : "attempts"} remaining 💭
                 </p>
               )}
 
@@ -164,9 +224,9 @@ export default function GiftSection() {
                     key={i}
                     className={`${line === "" ? "my-3" : "my-0.5"}`}
                     style={{
-                      color: line.startsWith("My dearest") || line.startsWith("Happy 25th") || line.startsWith("Yours") ? "#d4af37" : "rgba(255, 245, 240, 0.88)",
+                      color: line.startsWith("My dearest") || line.startsWith("Happy 25th") || line.startsWith("Yours") || line.startsWith("— Shola") ? "#d4af37" : "rgba(255, 245, 240, 0.88)",
                       fontWeight: line.startsWith("My dearest") || line.startsWith("Happy 25th") || line.startsWith("Yours") ? 600 : 400,
-                      fontFamily: line.startsWith("My dearest") || line.startsWith("Happy 25th") || line.startsWith("Yours") ? "'Playfair Display', serif" : "'Cormorant Garamond', serif",
+                      fontFamily: line.startsWith("My dearest") || line.startsWith("Happy 25th") || line.startsWith("Yours") || line.startsWith("— Shola") ? "'Playfair Display', serif" : "'Cormorant Garamond', serif",
                       fontSize: line.startsWith("My dearest") || line.startsWith("Happy 25th") ? "1.3rem" : "1.1rem",
                       opacity: 0,
                       animation: `reveal 0.5s ease forwards ${0.1 + i * 0.025}s`,

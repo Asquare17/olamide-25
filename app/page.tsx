@@ -176,7 +176,7 @@ function NavDots() {
     return () => observer.disconnect();
   }, []);
 
-  const labels = ["Hero", "Story", "Gallery", "Gift", "Wishes"];
+  const labels = ["Hero", "Gallery", "Story", "Gift", "Wishes"];
 
   const scrollTo = (i: number) => {
     const el = document.querySelector(`section[data-section="${i}"]`);
@@ -184,7 +184,7 @@ function NavDots() {
   };
 
   return (
-    <div className="fixed right-5 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3">
+    <div className="hidden md:flex fixed right-5 top-1/2 -translate-y-1/2 z-50 flex-col gap-3">
       {labels.map((_, i) => (
         <button
           key={i}
@@ -230,16 +230,16 @@ export default function Home() {
 
       <SectionDivider />
 
-      {/* 2. Our Story — the emotional core before the gallery */}
+      {/* 2. Gallery — put the focus on her first */}
       <section data-section="1">
-        <Timeline />
+        <Gallery />
       </section>
 
       <SectionDivider />
 
-      {/* 3. Gallery */}
+      {/* 3. Our Story */}
       <section data-section="2">
-        <Gallery />
+        <Timeline />
       </section>
 
       <SectionDivider />
