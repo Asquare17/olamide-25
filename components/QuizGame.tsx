@@ -41,7 +41,7 @@ const QUESTIONS = [
     id: 4,
     photo: "/images/genesis-cinema.webp",
     photoCaption: "💭 That smile when you walked out...",
-    question: "Which cinema did we visit together?",
+    question: "Which cinema did we first visit together?",
     options: ["Filmhouse", "Silverbird", "Genesis Cinema", "Vue Cinema"],
     answer: "Genesis Cinema",
     correctMsg: "Genesis Cinema 🎬 That smile walking out — I have it memorised.",
@@ -209,11 +209,6 @@ export default function QuizGame({ onWin }: QuizGameProps) {
                     <p className="font-cormorant text-base leading-snug" style={{ color: "rgba(255,245,240,0.85)" }}>
                       {q.question}
                     </p>
-                    {!correct && (
-                      <p className="font-cormorant text-sm italic mt-0.5" style={{ color: "rgba(212,175,55,0.7)" }}>
-                        Answer: {q.answer}
-                      </p>
-                    )}
                   </div>
                 </div>
               );
