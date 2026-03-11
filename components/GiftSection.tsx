@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import QuizGame from "./QuizGame";
 
-const CORRECT_PASSWORD = "LAGOS";
+const CORRECT_PASSWORD = "APEKE";
 
 const STORAGE_UNLOCKED = "olm_unlocked";
 const STORAGE_FAILS = "olm_fails";

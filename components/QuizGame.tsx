@@ -2,8 +2,8 @@
 import { useState } from "react";
 import Image from "next/image";
 
-// Each correct answer reveals one letter of the password "LAGOS"
-const PASSWORD_LETTERS = ["L", "A", "G", "O", "S"];
+// Each correct answer reveals one letter of the password "APEKE"
+const PASSWORD_LETTERS = ["A", "P", "E", "K", "E"];
 
 const QUESTIONS = [
   {
@@ -15,7 +15,7 @@ const QUESTIONS = [
     answer: "See Lagos",
     correctMsg: "Yes! 📚 Between those bookshelves in Lagos — that's where it all began.",
     wrongMsg: "Think back to the bookshelves and the mood lighting... 💡",
-    reveals: "L",
+    reveals: "A",
   },
   {
     id: 2,
@@ -26,7 +26,7 @@ const QUESTIONS = [
     answer: "A blue floral shirt",
     correctMsg: "That blue floral shirt 💙 You noticed! I was hoping you would.",
     wrongMsg: "Look closely at the colours in that first selfie... 👀",
-    reveals: "A",
+    reveals: "P",
   },
   {
     id: 3,
@@ -37,7 +37,7 @@ const QUESTIONS = [
     answer: "Inter Miami",
     correctMsg: "That pink jersey 🩷 You made it look better than any player ever has.",
     wrongMsg: "Look at the badge on the jersey... think pink 🌸",
-    reveals: "G",
+    reveals: "E",
   },
   {
     id: 4,
@@ -48,7 +48,7 @@ const QUESTIONS = [
     answer: "Genesis Cinema",
     correctMsg: "Genesis Cinema 🎬 That smile walking out — I have it memorised.",
     wrongMsg: "Think about that big smile outside the cinema... 🎭",
-    reveals: "O",
+    reveals: "K",
   },
   {
     id: 5,
@@ -59,7 +59,7 @@ const QUESTIONS = [
     answer: "Shukurat",
     correctMsg: "Shukurat 🌙 The name that carries your faith. I love every version of you.",
     wrongMsg: "The name your family calls you by... it starts with S 💛",
-    reveals: "S",
+    reveals: "E",
   },
 ];
 

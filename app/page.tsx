@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import Timeline from "@/components/Timeline";
 import Gallery from "@/components/Gallery";
 import GiftSection from "@/components/GiftSection";
+import WishesSection from "@/components/WishesSection";
 import { useEffect, useState, useRef } from "react";
 
 function SectionDivider() {
@@ -176,7 +177,7 @@ function NavDots() {
     return () => observer.disconnect();
   }, []);
 
-  const labels = ["Hero", "Gallery", "Story", "Gift", "Wishes"];
+  const labels = ["Hero", "Gallery", "Story", "Gift", "Wishes", "Closing"];
 
   const scrollTo = (i: number) => {
     const el = document.querySelector(`section[data-section="${i}"]`);
@@ -251,8 +252,15 @@ export default function Home() {
 
       <SectionDivider />
 
-      {/* 5. Closing — wishes + final moment */}
+      {/* 5. Birthday Wishes — community messages */}
       <section data-section="4">
+        <WishesSection />
+      </section>
+
+      <SectionDivider />
+
+      {/* 6. Closing — final moment */}
+      <section data-section="5">
         <ClosingSection />
       </section>
     </main>
