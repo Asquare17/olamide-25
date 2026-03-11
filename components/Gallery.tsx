@@ -1,5 +1,4 @@
 "use client";
-import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 
 // ── 25th Birthday Shoot — all 4 images, face-optimised ──────────────────────
@@ -112,26 +111,10 @@ function PhotoCard({
   heightClass: string;
   index: number;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.1 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <div
-      ref={ref}
       className={`relative rounded-2xl overflow-hidden group cursor-pointer ${heightClass}`}
       style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(30px)",
-        transition: `opacity 0.6s ease ${index * 0.07}s, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${index * 0.07}s`,
         border: "1px solid rgba(255,255,255,0.06)",
       }}
     >
@@ -190,28 +173,8 @@ function SectionHeader({
   title: string;
   sub?: string;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.3 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <div
-      ref={ref}
-      className="text-center mb-10"
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(24px)",
-        transition: "all 0.7s ease",
-      }}
-    >
+    <div className="text-center mb-10">
       <span className="font-dancing text-lg" style={{ color: "rgba(201,149,106,0.8)" }}>
         {eyebrow}
       </span>

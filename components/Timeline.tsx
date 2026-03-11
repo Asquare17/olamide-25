@@ -1,5 +1,4 @@
 "use client";
-import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 
 const MOMENTS = [
@@ -68,30 +67,10 @@ function TimelineCard({
   index: number;
   align: "left" | "right";
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.2 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <div
-      ref={ref}
       className="w-full rounded-2xl overflow-hidden group"
       style={{
-        opacity: visible ? 1 : 0,
-        transform: visible
-          ? "translateX(0)"
-          : align === "left"
-          ? "translateX(-40px)"
-          : "translateX(40px)",
-        transition: `all 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) ${index * 0.08}s`,
         border: "1px solid rgba(255,255,255,0.07)",
         background: "rgba(255,255,255,0.03)",
       }}
@@ -151,17 +130,6 @@ function TimelineCard({
 }
 
 export default function Timeline() {
-  const headerRef = useRef<HTMLDivElement>(null);
-  const [headerVisible, setHeaderVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setHeaderVisible(true); },
-      { threshold: 0.3 }
-    );
-    if (headerRef.current) observer.observe(headerRef.current);
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <section className="relative py-24 px-4 md:px-12 overflow-hidden">
@@ -176,15 +144,7 @@ export default function Timeline() {
 
       <div className="relative z-10 max-w-5xl mx-auto">
         {/* Header */}
-        <div
-          ref={headerRef}
-          className="text-center mb-20"
-          style={{
-            opacity: headerVisible ? 1 : 0,
-            transform: headerVisible ? "translateY(0)" : "translateY(30px)",
-            transition: "all 0.8s ease",
-          }}
-        >
+        <div className="text-center mb-20">
           <span className="font-dancing text-xl" style={{ color: "rgba(201,149,106,0.8)" }}>
             written in the stars
           </span>

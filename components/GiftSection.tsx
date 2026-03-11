@@ -51,16 +51,7 @@ export default function GiftSection() {
   const [locked, setLocked] = useState(false);
   const [failsLeft, setFailsLeft] = useState(MAX_FAILS);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) setVisible(true);
-    }, { threshold: 0.1 });
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
 
   // Restore persisted state on mount
   useEffect(() => {
@@ -122,7 +113,7 @@ export default function GiftSection() {
 
       <div className="orb w-[600px] h-[600px] opacity-15" style={{ background: "radial-gradient(circle, #c9956a 0%, transparent 70%)", top: "20%", left: "50%", transform: "translateX(-50%)" }} />
 
-      <div className="relative z-10 max-w-3xl mx-auto" style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(40px)", transition: "all 0.8s ease" }}>
+      <div className="relative z-10 max-w-3xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
           <span className="font-dancing text-xl" style={{ color: "rgba(201, 149, 106, 0.8)" }}>unlock the secret</span>

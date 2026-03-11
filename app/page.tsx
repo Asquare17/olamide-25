@@ -6,7 +6,7 @@ import Timeline from "@/components/Timeline";
 import Gallery from "@/components/Gallery";
 import GiftSection from "@/components/GiftSection";
 import WishesSection from "@/components/WishesSection";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 function SectionDivider() {
   return (
@@ -27,17 +27,6 @@ function SectionDivider() {
 }
 
 function ClosingSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.3 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
 
   const wishes = [
     { icon: "🌙", text: "May this year carry you higher than you've ever been" },
@@ -59,15 +48,7 @@ function ClosingSection() {
         }}
       />
 
-      <div
-        ref={ref}
-        className="relative z-10 max-w-2xl mx-auto text-center"
-        style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(40px)",
-          transition: "all 0.9s ease",
-        }}
-      >
+      <div className="relative z-10 max-w-2xl mx-auto text-center">
         {/* Opening */}
         <span className="font-dancing text-xl" style={{ color: "rgba(201,149,106,0.8)" }}>
           for her 25th year
@@ -85,9 +66,6 @@ function ClosingSection() {
               className="flex items-start gap-4 text-left glass rounded-2xl px-5 py-4"
               style={{
                 border: "1px solid rgba(255,255,255,0.06)",
-                opacity: visible ? 1 : 0,
-                transform: visible ? "translateX(0)" : "translateX(-20px)",
-                transition: `all 0.7s ease ${0.15 + i * 0.1}s`,
               }}
             >
               <span
@@ -107,13 +85,7 @@ function ClosingSection() {
         </div>
 
         {/* Final message */}
-        <div
-          className="mt-16 flex flex-col items-center gap-4"
-          style={{
-            opacity: visible ? 1 : 0,
-            transition: "opacity 1s ease 0.8s",
-          }}
-        >
+        <div className="mt-16 flex flex-col items-center gap-4">
           <div
             className="text-6xl"
             style={{
