@@ -73,19 +73,22 @@ function PhotoSlideshow() {
         className="photo-frame relative w-56 h-72 md:w-64 md:h-[340px] rounded-2xl overflow-hidden"
         style={{ zIndex: 5 }}
       >
-        <Image
-          key={slide.src}
-          src={slide.src}
-          alt="Olamide"
-          fill
-          className="object-cover"
-          style={{
-            objectPosition: slide.objectPosition,
-            opacity: fading ? 0 : 1,
-            transition: "opacity 0.35s ease",
-          }}
-          priority
-        />
+        {/* Render all slides — only active one is visible; others preloaded */}
+        {SHOOT_SLIDES.map((s, i) => (
+          <Image
+            key={s.src}
+            src={s.src}
+            alt="Olamide"
+            fill
+            className="object-cover"
+            style={{
+              objectPosition: s.objectPosition,
+              opacity: i === current && !fading ? 1 : 0,
+              transition: "opacity 0.35s ease",
+            }}
+            priority
+          />
+        ))}
         {/* Subtle bottom gradient so age badge reads clearly */}
         <div
           className="absolute inset-0 pointer-events-none"

@@ -191,7 +191,35 @@ function SectionHeader({
   );
 }
 
-// ── Gallery page ──────────────────────────────────────────────────────────────
+// ── Birthday Shoot section ────────────────────────────────────────────────────
+export function BirthdayShoot() {
+  return (
+    <section className="relative py-24 px-4 md:px-12 overflow-hidden">
+      <div
+        className="orb w-[400px] h-[400px] opacity-[0.07]"
+        style={{
+          background: "radial-gradient(circle, #d4af37 0%, transparent 70%)",
+          top: "20%",
+          right: "-80px",
+        }}
+      />
+      <div className="relative z-10 max-w-6xl mx-auto">
+        <SectionHeader
+          eyebrow="fope dredd photography"
+          title="The 25th Birthday Shoot"
+          sub="Four looks. One woman. Completely unforgettable."
+        />
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+          {SHOOT_ITEMS.map((item, i) => (
+            <PhotoCard key={item.id} {...item} heightClass="h-[300px] sm:h-[420px]" index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── Personal gallery section ───────────────────────────────────────────────────
 export default function Gallery() {
   return (
     <section className="relative py-24 px-4 md:px-12 overflow-hidden">
@@ -204,30 +232,12 @@ export default function Gallery() {
           transform: "translateX(-50%)",
         }}
       />
-
       <div className="relative z-10 max-w-6xl mx-auto">
-
-        {/* ── Section 1: The 25th Birthday Shoot ── */}
-        <SectionHeader
-          eyebrow="fope dredd photography"
-          title="The 25th Birthday Shoot"
-          sub="Four looks. One woman. Completely unforgettable."
-        />
-
-        {/* 4 equal cards — tall portrait height, faces front and centre */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-20">
-          {SHOOT_ITEMS.map((item, i) => (
-            <PhotoCard key={item.id} {...item} heightClass="h-[300px] sm:h-[420px]" index={i} />
-          ))}
-        </div>
-
-        {/* ── Section 2: Her Gallery ── */}
         <SectionHeader
           eyebrow="captured in time"
           title="Her Gallery"
           sub="Every photo tells a story only she could write"
         />
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {GALLERY_ITEMS.map((item, i) => (
             <PhotoCard key={item.id} {...item} heightClass="h-[280px] sm:h-[320px]" index={i} />

@@ -3,7 +3,7 @@ import StarField from "@/components/StarField";
 import FloatingPetals from "@/components/FloatingPetals";
 import Hero from "@/components/Hero";
 import Timeline from "@/components/Timeline";
-import Gallery from "@/components/Gallery";
+import Gallery, { BirthdayShoot } from "@/components/Gallery";
 import GiftSection from "@/components/GiftSection";
 import WishesSection from "@/components/WishesSection";
 import { useEffect, useState } from "react";
@@ -149,7 +149,7 @@ function NavDots() {
     return () => observer.disconnect();
   }, []);
 
-  const labels = ["Hero", "Gallery", "Story", "Gift", "Wishes", "Closing"];
+  const labels = ["Intro", "Shoot", "Gallery", "Wishes", "Story", "Gift", "Closing"];
 
   const scrollTo = (i: number) => {
     const el = document.querySelector(`section[data-section="${i}"]`);
@@ -196,43 +196,50 @@ export default function Home() {
       <FloatingPetals />
       <NavDots />
 
-      {/* 1. Hero */}
+      {/* 1. Intro */}
       <section data-section="0">
         <Hero />
       </section>
 
       <SectionDivider />
 
-      {/* 2. Gallery — put the focus on her first */}
+      {/* 2. Birthday Shoot */}
       <section data-section="1">
+        <BirthdayShoot />
+      </section>
+
+      <SectionDivider />
+
+      {/* 3. Her Gallery */}
+      <section data-section="2">
         <Gallery />
       </section>
 
       <SectionDivider />
 
-      {/* 3. The Gift — message before timeline */}
-      <section data-section="2">
-        <GiftSection />
-      </section>
-
-      <SectionDivider />
-
-      {/* 4. Our Story */}
+      {/* 4. Birthday Wishes */}
       <section data-section="3">
-        <Timeline />
-      </section>
-
-      <SectionDivider />
-
-      {/* 5. Birthday Wishes — community messages */}
-      <section data-section="4">
         <WishesSection />
       </section>
 
       <SectionDivider />
 
-      {/* 6. Closing — final moment */}
+      {/* 5. Our Story */}
+      <section data-section="4">
+        <Timeline />
+      </section>
+
+      <SectionDivider />
+
+      {/* 6. Gift */}
       <section data-section="5">
+        <GiftSection />
+      </section>
+
+      <SectionDivider />
+
+      {/* 7. Closing */}
+      <section data-section="6">
         <ClosingSection />
       </section>
     </main>
