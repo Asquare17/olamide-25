@@ -176,20 +176,12 @@ function NavDots() {
 }
 
 export default function Home() {
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => setLoaded(true), 100);
-  }, []);
-
   return (
     <main
       className="relative"
       style={{
         background:
           "radial-gradient(ellipse at 20% 0%, #2d0820 0%, #0d0208 45%, #0d0208 100%)",
-        opacity: loaded ? 1 : 0,
-        transition: "opacity 0.5s ease",
       }}
     >
       <StarField />

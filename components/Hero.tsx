@@ -158,28 +158,6 @@ function PhotoSlideshow() {
 }
 
 export default function Hero() {
-  const [visible, setVisible] = useState(false);
-  const [letterVisible, setLetterVisible] = useState<boolean[]>(
-    new Array(LETTERS.length).fill(false)
-  );
-
-  useEffect(() => {
-    const t = setTimeout(() => setVisible(true), 300);
-    return () => clearTimeout(t);
-  }, []);
-
-  useEffect(() => {
-    if (!visible) return;
-    LETTERS.forEach((_, i) => {
-      const t = setTimeout(() => {
-        setLetterVisible((prev) => {
-          const next = [...prev];
-          next[i] = true;
-          return next;
-        });
-      }, 800 + i * 120);
-    });
-  }, [visible]);
 
   return (
     <section className="relative flex flex-col items-center justify-center min-h-screen px-6 py-20 overflow-hidden">
@@ -206,13 +184,7 @@ export default function Hero() {
       <div className="relative z-10 flex flex-col items-center text-center gap-5 max-w-5xl w-full mx-auto">
 
         {/* Eyebrow */}
-        <div
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(-20px)",
-            transition: "all 0.9s ease 0.2s",
-          }}
-        >
+        <div>
           <span
             className="font-dancing text-xl md:text-2xl"
             style={{ color: "rgba(201, 149, 106, 0.85)", letterSpacing: "0.12em" }}
@@ -222,7 +194,7 @@ export default function Hero() {
         </div>
 
         {/* HAPPY BIRTHDAY */}
-        <div style={{ opacity: visible ? 1 : 0, transition: "opacity 1s ease 0.5s" }}>
+        <div>
           <h2 className="font-playfair font-black tracking-[0.2em] text-3xl md:text-5xl lg:text-6xl shimmer-text">
             HAPPY BIRTHDAY
           </h2>
@@ -239,11 +211,6 @@ export default function Hero() {
                 color: "#ff8fab",
                 textShadow:
                   "0 0 25px rgba(255,143,171,0.5), 0 0 50px rgba(194,24,91,0.25)",
-                opacity: letterVisible[i] ? 1 : 0,
-                transform: letterVisible[i]
-                  ? "translateY(0) scale(1)"
-                  : "translateY(30px) scale(0.85)",
-                transition: "all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
                 display: "inline-block",
                 lineHeight: 1,
               }}
@@ -254,14 +221,7 @@ export default function Hero() {
         </div>
 
         {/* Slideshow + Quote — connected hero unit */}
-        <div
-          className="flex flex-col md:flex-row items-center md:items-start gap-6 mt-4 w-full max-w-3xl"
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(40px)",
-            transition: "all 1.1s ease 1.8s",
-          }}
-        >
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mt-4 w-full max-w-3xl">
           {/* Left: 4-photo slideshow */}
           <PhotoSlideshow />
 
@@ -301,10 +261,7 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
-        style={{ opacity: visible ? 1 : 0, transition: "opacity 1s ease 3.2s" }}
-      >
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
         <span
           className="font-dancing text-sm"
           style={{ color: "rgba(212, 175, 55, 0.55)" }}

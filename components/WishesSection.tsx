@@ -16,17 +16,7 @@ export default function WishesSection() {
   const [formError, setFormError] = useState("");
 
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     fetchWishes();
@@ -107,14 +97,7 @@ export default function WishesSection() {
         }}
       />
 
-      <div
-        className="relative z-10 max-w-4xl mx-auto"
-        style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(40px)",
-          transition: "all 0.8s ease",
-        }}
-      >
+      <div className="relative z-10 max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-14">
           <span className="font-dancing text-xl" style={{ color: "rgba(201,149,106,0.8)" }}>
