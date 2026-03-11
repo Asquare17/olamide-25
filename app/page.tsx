@@ -238,16 +238,16 @@ export default function Home() {
 
       <SectionDivider />
 
-      {/* 3. Our Story */}
+      {/* 3. The Gift — message before timeline */}
       <section data-section="2">
-        <Timeline />
+        <GiftSection />
       </section>
 
       <SectionDivider />
 
-      {/* 4. The Gift — quiz + hidden letter */}
+      {/* 4. Our Story */}
       <section data-section="3">
-        <GiftSection />
+        <Timeline />
       </section>
 
       <SectionDivider />

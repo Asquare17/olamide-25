@@ -14,13 +14,15 @@ export default function StarField() {
   const [stars, setStars] = useState<Star[]>([]);
 
   useEffect(() => {
-    const generated = Array.from({ length: 120 }, (_, i) => ({
+    const isMobile = window.innerWidth < 768;
+    const count = isMobile ? 40 : 120;
+    const generated = Array.from({ length: count }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      size: Math.random() * 2.5 + 0.5,
-      duration: Math.random() * 4 + 2,
-      delay: Math.random() * 5,
+      size: Math.random() * 2 + 0.5,
+      duration: Math.random() * 5 + 4,
+      delay: Math.random() * 6,
     }));
     setStars(generated);
   }, []);

@@ -10,23 +10,27 @@ interface Petal {
   type: string;
 }
 
-// Only two motifs — roses and stars
 const PETAL_TYPES = ["🌹", "🌹", "⭐", "🌹", "⭐"];
 
 export default function FloatingPetals() {
   const [petals, setPetals] = useState<Petal[]>([]);
 
   useEffect(() => {
-    const generated = Array.from({ length: 12 }, (_, i) => ({
+    // Disable on mobile — backdrop-filter and DOM animations are already heavy
+    if (window.innerWidth < 768) return;
+
+    const generated = Array.from({ length: 8 }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
-      duration: Math.random() * 12 + 10,
-      delay: Math.random() * 20,
+      duration: Math.random() * 14 + 12,
+      delay: Math.random() * 22,
       size: Math.random() * 10 + 10,
       type: PETAL_TYPES[Math.floor(Math.random() * PETAL_TYPES.length)],
     }));
     setPetals(generated);
   }, []);
+
+  if (petals.length === 0) return null;
 
   return (
     <div className="fixed inset-0 z-[2] pointer-events-none overflow-hidden">
@@ -39,7 +43,7 @@ export default function FloatingPetals() {
             fontSize: `${petal.size}px`,
             animationDuration: `${petal.duration}s`,
             animationDelay: `${petal.delay}s`,
-            opacity: 0.4,
+            opacity: 0.35,
           }}
         >
           {petal.type}

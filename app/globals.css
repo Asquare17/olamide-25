@@ -33,40 +33,30 @@ body {
 }
 
 /* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #0d0208;
-}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0d0208; }
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(to bottom, #d4af37, #c9956a);
   border-radius: 3px;
 }
 
-/* Shimmer text animation */
+/* ─── Shimmer text ─────────────────────────────────────────────── */
 .shimmer-text {
-  background: linear-gradient(
-    90deg,
-    #d4af37 0%,
-    #f0d060 25%,
-    #fff5e4 50%,
-    #f0d060 75%,
-    #d4af37 100%
-  );
+  background: linear-gradient(90deg, #d4af37 0%, #f0d060 25%, #fff5e4 50%, #f0d060 75%, #d4af37 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shimmer 3s linear infinite;
+  will-change: background-position;
 }
 
 @keyframes shimmer {
-  0% { background-position: 0% center; }
+  0%   { background-position: 0% center; }
   100% { background-position: 200% center; }
 }
 
-/* Glass morphism */
+/* ─── Glass morphism — desktop full blur, mobile light ─────────── */
 .glass {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px);
@@ -88,77 +78,43 @@ body {
   border: 1px solid rgba(255, 143, 171, 0.25);
 }
 
-/* Glow effects */
+@media (max-width: 768px) {
+  .glass {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .glass-gold {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .glass-rose {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+}
+
+/* ─── Glow effects ─────────────────────────────────────────────── */
 .glow-gold {
   box-shadow: 0 0 30px rgba(212, 175, 55, 0.4), 0 0 60px rgba(212, 175, 55, 0.2);
 }
-
 .glow-rose {
   box-shadow: 0 0 30px rgba(255, 143, 171, 0.4), 0 0 60px rgba(194, 24, 91, 0.2);
+}
+
+@media (max-width: 768px) {
+  .glow-gold { box-shadow: 0 0 16px rgba(212, 175, 55, 0.4); }
+  .glow-rose  { box-shadow: 0 0 16px rgba(255, 143, 171, 0.4); }
 }
 
 .text-glow-gold {
   text-shadow: 0 0 20px rgba(212, 175, 55, 0.6), 0 0 40px rgba(212, 175, 55, 0.3);
 }
-
 .text-glow-rose {
   text-shadow: 0 0 20px rgba(255, 143, 171, 0.8), 0 0 40px rgba(194, 24, 91, 0.4);
 }
 
-/* Card flip 3D */
-.card-scene {
-  perspective: 1000px;
-}
-
-.card-inner {
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-style: preserve-3d;
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.card-inner.flipped {
-  transform: rotateY(180deg);
-}
-
-.card-face {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.card-back {
-  background: linear-gradient(135deg, #2d0820 0%, #450c30 50%, #2d0820 100%);
-  border: 1px solid rgba(212, 175, 55, 0.4);
-}
-
-.card-front {
-  background: linear-gradient(135deg, #1a0410 0%, #2d0820 100%);
-  border: 1px solid rgba(212, 175, 55, 0.6);
-  transform: rotateY(180deg);
-}
-
-/* Envelope animation */
-.envelope-flap {
-  transform-origin: top center;
-  transition: transform 0.6s ease-in-out;
-}
-
-.envelope-open .envelope-flap {
-  transform: rotateX(-180deg);
-}
-
-/* Photo frame */
-.photo-frame {
-  position: relative;
-}
+/* ─── Photo frame — spin only on desktop ──────────────────────── */
+.photo-frame { position: relative; }
 
 .photo-frame::before {
   content: '';
@@ -167,10 +123,9 @@ body {
   background: linear-gradient(135deg, #d4af37, #c9956a, #ff8fab, #c2185b, #d4af37);
   border-radius: inherit;
   z-index: -1;
-  animation: spin 4s linear infinite;
   background-size: 300% 300%;
+  animation: spin 4s linear infinite;
 }
-
 .photo-frame::after {
   content: '';
   position: absolute;
@@ -180,72 +135,84 @@ body {
   z-index: -2;
   opacity: 0.4;
   filter: blur(8px);
-  animation: spin 4s linear infinite reverse;
   background-size: 300% 300%;
+  animation: spin 4s linear infinite reverse;
+}
+
+@media (max-width: 768px) {
+  /* Replace animated gradient border with a simple static one on mobile */
+  .photo-frame::before {
+    animation: none;
+    background: linear-gradient(135deg, #d4af37, #ff8fab);
+    background-size: 100% 100%;
+  }
+  .photo-frame::after {
+    animation: none;
+    filter: blur(4px);
+    background-size: 100% 100%;
+  }
 }
 
 @keyframes spin {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
-/* Petal */
+/* ─── Petals ────────────────────────────────────────────────────── */
 .petal {
   position: fixed;
   top: -10vh;
   animation: petalFall linear infinite;
   pointer-events: none;
   z-index: 1;
+  will-change: transform;
 }
 
 @keyframes petalFall {
-  0% {
-    transform: translateY(0) rotate(0deg) translateX(0);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(110vh) rotate(720deg) translateX(100px);
-    opacity: 0;
-  }
+  0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg) translateX(100px); opacity: 0; }
 }
 
-/* Star field */
+/* ─── Stars ─────────────────────────────────────────────────────── */
 .star {
   position: fixed;
   border-radius: 50%;
   animation: twinkle ease-in-out infinite;
   pointer-events: none;
+  will-change: opacity;
 }
 
 @keyframes twinkle {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.2; transform: scale(0.6); }
+  50%       { opacity: 0.2; transform: scale(0.6); }
 }
 
-/* Section */
-.snap-section {
-  min-height: 100vh;
-}
+/* ─── Section ───────────────────────────────────────────────────── */
+.snap-section { min-height: 100vh; }
 
-/* Gold divider */
+/* ─── Gold divider ──────────────────────────────────────────────── */
 .gold-divider {
   height: 1px;
   background: linear-gradient(90deg, transparent, #d4af37, #f0d060, #d4af37, transparent);
 }
 
-/* Orb background elements */
+/* ─── Orb background ────────────────────────────────────────────── */
 .orb {
   position: absolute;
   border-radius: 50%;
   filter: blur(80px);
   pointer-events: none;
+  will-change: transform;
 }
 
-/* Input glow */
-input:focus {
-  outline: none;
+@media (max-width: 768px) {
+  /* Reduce orb blur cost on mobile */
+  .orb { filter: blur(50px); opacity: 0.05 !important; }
 }
+
+/* ─── Input ─────────────────────────────────────────────────────── */
+input:focus { outline: none; }
 
 .gift-input {
   background: rgba(255, 255, 255, 0.05);
@@ -255,21 +222,19 @@ input:focus {
   font-size: 1.4rem;
   letter-spacing: 0.3em;
   text-align: center;
-  transition: all 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-
 .gift-input:focus {
   border-color: #d4af37;
   box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), inset 0 0 20px rgba(212, 175, 55, 0.05);
   background: rgba(212, 175, 55, 0.05);
 }
-
 .gift-input::placeholder {
   color: rgba(212, 175, 55, 0.3);
   letter-spacing: 0.3em;
 }
 
-/* Number badge */
+/* ─── Age badge ─────────────────────────────────────────────────── */
 .age-badge {
   background: linear-gradient(135deg, #d4af37, #f0d060, #d4af37);
   background-size: 200% auto;
@@ -279,23 +244,18 @@ input:focus {
   animation: shimmer 3s linear infinite;
 }
 
-/* Scroll indicator */
-.scroll-indicator {
-  animation: bounce 2s infinite;
-}
-
+/* ─── Bounce ────────────────────────────────────────────────────── */
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(10px); }
+  50%       { transform: translateY(10px); }
 }
 
-/* Matched card glow */
+/* ─── Misc ──────────────────────────────────────────────────────── */
 .card-matched {
   box-shadow: 0 0 20px rgba(212, 175, 55, 0.6), 0 0 40px rgba(212, 175, 55, 0.3);
   border-color: rgba(212, 175, 55, 0.8) !important;
 }
 
-/* Letter content */
 .letter-content {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.15rem;
@@ -303,12 +263,6 @@ input:focus {
   color: rgba(255, 245, 240, 0.9);
 }
 
-/* Timeline line */
-.timeline-line {
-  background: linear-gradient(to bottom, transparent, #d4af37, #c9956a, #ff8fab, transparent);
-}
-
-/* Gradient text variations */
 .gradient-rose-gold {
   background: linear-gradient(135deg, #ff8fab, #d4af37);
   -webkit-background-clip: text;
@@ -323,18 +277,47 @@ input:focus {
   -webkit-text-fill-color: transparent;
 }
 
-/* Button hover lift */
+/* ─── Button lift — no hover effect on touch devices ───────────── */
 .btn-lift {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
-.btn-lift:hover {
-  transform: translateY(-3px);
+@media (hover: hover) {
+  .btn-lift:hover { transform: translateY(-3px); }
 }
 
-/* Particle orbs */
+/* ─── Orb float — GPU only, disabled on mobile ─────────────────── */
 @keyframes orbFloat {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -20px) scale(1.1); }
-  66% { transform: translate(-20px, 10px) scale(0.9); }
+  33%       { transform: translate(30px, -20px) scale(1.1); }
+  66%       { transform: translate(-20px, 10px) scale(0.9); }
+}
+
+@media (max-width: 768px) {
+  /* Kill orbFloat on mobile — static blobs are fine */
+  [style*="orbFloat"] { animation: none !important; }
+}
+
+/* ─── Letter reveal ─────────────────────────────────────────────── */
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Heartbeat ─────────────────────────────────────────────────── */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15%       { transform: scale(1.15); }
+  30%       { transform: scale(1); }
+  45%       { transform: scale(1.08); }
+  60%       { transform: scale(1); }
+}
+
+/* ─── Reduced motion: disable everything ───────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
